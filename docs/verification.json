@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-11-17T21:03:18.516852+00:00",
+  "environment": "3.12.3 | packaged by conda-forge | (main, Apr 15 2024, 18:20:11) [MSC v.1938 64 bit (AMD64)]",
+  "dependency_mode": "local existing dependencies; project packages installed from fresh wheels into isolated targets",
+  "project": {
+    "tests": 25,
+    "wheel": "mergeproof-0.1.0-py3-none-any.whl",
+    "wheel_sha256": "f02483e992e1f8e3886f1f63c905ef093695b8dc5c499873705333b064e2eb4b",
+    "source_hashes": {
+      "src/mergeproof/__init__.py": "36f1545072e839ff93974e9515079fb79ad44c90bdaccc3465e658e24101fc5c",
+      "src/mergeproof/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+      "src/mergeproof/cli.py": "8e585757ec2a2b49bc696f7c1d20569c2058955d59dffbcffab8d314f291d3bf",
+      "src/mergeproof/io.py": "17bc12e0d5f9d221e5431fd56a6cbf44bb74c371cdc0f1ac0b1f43d571e88e7d",
+      "src/mergeproof/manifest.py": "d9ab7cbdb47a6f24dec20f422246f6587047996cb33a1dc4e87d3c84fdc908f5",
+      "src/mergeproof/report.py": "709d37426012bda1ffacd778b5ee4e54b9f27f71b52732ba5db2d4533dea4084",
+      "src/mergeproof/verify.py": "3517961f5b7daa9caa0874cfcd01b0e66f0e78027da245cf51ee1fae85d7e713",
+      "tests/test_cli.py": "0aa1af5eb9c0becdb1e271f6b62202a4ba09beda76f1a1c9711814b65d6e061d",
+      "tests/test_verify.py": "e9469d70a52bb1dfb58bdc72038c9e801dfd6b1d7d08c8751c762ce157e1796d",
+      "pyproject.toml": "dd12810696972b94321e22b2a199080d73bc2d9aff8258fe6028974075d62879"
+    },
+    "installed_tests": "PASS",
+    "wheel_source_bytes": "MATCH"
+  },
+  "mutation": {
+    "project": "mergeproof",
+    "assertion": "test_wrong_alpha",
+    "result": "CAUGHT",
+    "source_unchanged": true
+  },
+  "visual": {
+    "project": "mergeproof",
+    "file": "mergeproof-demo/bad.html",
+    "desktop_width": 1200,
+    "desktop_document_width": 1200,
+    "mobile_width": 360,
+    "mobile_document_width": 360,
+    "details_before": false,
+    "details_after": true,
+    "visible_evidence": "merge_mismatch; residual 8.0 at [1,1]",
+    "external_resource_entries": 0
+  },
+  "limits": "Basic visual and report interaction checks only. Not a screen-reader audit, real-phone test or cross-browser certification. Resource counts are browser Performance Resource Timing observations, not a general network-security proof."
+}
