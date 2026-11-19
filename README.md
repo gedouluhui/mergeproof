@@ -1,5 +1,7 @@
 # MergeProof
 
+[![CI](https://github.com/gedouluhui/mergeproof/actions/workflows/ci.yml/badge.svg)](https://github.com/gedouluhui/mergeproof/actions/workflows/ci.yml)
+
 **Did your LoRA reach the right weights? Check the artifacts, not just the merge command.**
 
 MergeProof compares a local base checkpoint, a standard Linear LoRA adapter and a merged checkpoint against an explicit tensor mapping. It checks every declared target and verifies that non-target tensor bytes did not change.
