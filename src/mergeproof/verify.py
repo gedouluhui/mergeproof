@@ -142,7 +142,13 @@ def verify(base, adapter, merged, manifest, *, block_size=128, atol=1e-6, rtol=1
                         lt = a.get_slice(target['b'])[ii, :].astype(np.float64)
                         if not all(np.isfinite(v).all() for v in (bt, mt, at, lt)):
                             finite = False
-                            nonfinite += bt.size
+                            nonfinite += int(np.count_nonzero(~np.isfinite(bt)))
+                            nonfinite += int(np.count_nonzero(~np.isfinite(mt)))
+                            # Adapter panels overlap across output tiles; count each entry once.
+                            if i == 0:
+                                nonfinite += int(np.count_nonzero(~np.isfinite(at)))
+                            if j == 0:
+                                nonfinite += int(np.count_nonzero(~np.isfinite(lt)))
                             del bt, mt, at, lt
                             continue
                         low, high = dot_interval(lt, at)
