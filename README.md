@@ -92,3 +92,34 @@ Tests cover hand-computed matrices, incorrect scale, swapped same-shaped layers,
 Bug reports are most useful with a **tiny self-generated** safetensors reproduction and manifest. Do not upload private model weights. AI-assisted implementation; review the code and contract rather than treating authorship or test counts as a correctness guarantee.
 
 MIT. Uses NumPy (BSD-3-Clause) and safetensors (Apache-2.0); their licenses remain applicable.
+
+## Quickstart and support
+
+### Problem
+Verify that a local LoRA merge applied the declared update to the right tensors and left non-target bytes unchanged.
+
+### Install
+```sh
+python -m pip install .
+```
+
+### Success
+```sh
+mergeproof demo --output demo
+```
+Expected: The generated good control passes and the demo writes inspectable HTML/JSON evidence; exit 0.
+
+### Deliberate failure
+```sh
+mergeproof verify --base demo/base.safetensors --adapter demo/adapter.safetensors --merged demo/bad.safetensors --manifest demo/manifest.json
+```
+Expected: The deliberately doubled update is reported as FAIL and exits 1.
+
+### Evidence and coverage boundaries
+Evidence includes hand-computed matrices, incorrect scale, swapped same-shaped layers, missing/unused keys, non-target changes, nonfinite values, tile invariance, zero-update ambiguity, and CLI output tests. Coverage is the explicit FP32 standard Linear LoRA equation, not model behavior or formal verification.
+
+### Support status
+Version 0.1.0 supports Python 3.10+ and single-file FP32 safetensors with standard nonquantized Linear LoRA. The documented route is a source checkout. Maintenance is best-effort with no SLA.
+
+### Limitations
+Sharded indexes, FP16/BF16, DoRA, rsLoRA, quantization, bias updates, extra modules, and modified-base semantics are unsupported. Hashes identify bytes but do not authenticate origin, and the checker is not an adversarial concurrent-filesystem sandbox.
