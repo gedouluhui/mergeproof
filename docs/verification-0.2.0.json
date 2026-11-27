@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "project": "mergeproof",
+  "version": "0.2.0",
+  "generated_at": "2026-11-27",
+  "scope": "Owner-run local evidence for the 0.2.0 certified-decision worktree. Not an external certification, not a claim about other backends or versions.",
+  "environment": {
+    "platform": "win32",
+    "python": "3.12.3",
+    "numpy": "2.4.6",
+    "safetensors": "0.7.0",
+    "torch": "2.12.0+cpu",
+    "peft": "0.19.1"
+  },
+  "source_sha256": {
+    "src/mergeproof/numerics.py": "d39198c362373bf7b05af96045d8c7e562243f804ae9aa9d2515928eac443237",
+    "src/mergeproof/verify.py": "036456e5a358d523cace615e2ef54a3fafef1d48505ad12aa043644fa2738a41",
+    "src/mergeproof/report.py": "28a36940bd5667f5d59401f1ad35b14e19fb9c2d9c61e3cc07e5f82bb04e69bd",
+    "src/mergeproof/cli.py": "085ada0efb71d8f34ec08ae91d30f85d4c2c0ed5cb0e67df5b6e2a95ef4f55b8"
+  },
+  "wheel": {
+    "file": "mergeproof-0.2.0-py3-none-any.whl",
+    "sha256": "fa474afca1fa6822f48b7ee13a01a7ec7fa12192b50caba54d050651a0191f00",
+    "packaged_modules_byte_match_source": true,
+    "installed_external_target": true,
+    "installed_tests_passed": 34
+  },
+  "tests": {
+    "command": "PYTHONPATH=src python -m unittest discover -s tests -v",
+    "count": 34,
+    "result": "OK",
+    "includes_optional_peft_integration": true
+  },
+  "regressions": [
+    {"case": "double cancellation, wrong merged=2", "block_sizes": [1, 2, 128], "status": "FAIL", "exact_residual": 1.0},
+    {"case": "double cancellation, correct merged=3", "block_sizes": [1, 2, 128], "status": "PASS"},
+    {"case": "rounded subtraction base=1 merged=2**60 atol=0.5 rtol=0", "status": "FAIL", "max_abs_error": 1.0},
+    {"case": "exact fallback disabled max_exact_terms=0", "status": "INDETERMINATE", "unresolved_elements": 1, "exact_terms_used": 0},
+    {"case": "exact threshold equality residual == atol", "status": "PASS"}
+  ],
+  "peft_gate": {
+    "command": "python scripts/check_peft_integration.py",
+    "result": "PASS",
+    "cases": [
+      {"rank": 1, "good": "PASS", "wrong_alpha": "FAIL", "unchanged_base": "FAIL", "max_update": 0.012307567521929741, "good_max_abs_error": 6.475277647410849e-09, "unresolved_elements": 0},
+      {"rank": 4, "good": "PASS", "wrong_alpha": "FAIL", "unchanged_base": "FAIL", "max_update": 0.024420039728283882, "good_max_abs_error": 7.462671973434976e-09, "unresolved_elements": 0},
+      {"rank": 8, "good": "PASS", "wrong_alpha": "FAIL", "unchanged_base": "FAIL", "max_update": 0.055103600025177, "good_max_abs_error": 7.793222039920167e-09, "unresolved_elements": 0}
+    ]
+  },
+  "mutations": {
+    "location": "temporary copy outside the worktree",
+    "worktree_sources_unchanged": true,
+    "results": [
+      {"mutation": "ignore exact mismatch", "caught": true, "test": "test_numerics.CertifiedFileTests.test_double_cancellation_wrong_fails_right_passes"},
+      {"mutation": "drop unresolved element count", "caught": true, "test": "test_numerics.CertifiedFileTests.test_budget_zero_is_unknown_not_false_pass"},
+      {"mutation": "restore rounded float subtraction in exact oracle", "caught": true, "test": "test_numerics.CertifiedFileTests.test_observed_subtraction_is_also_certified"},
+      {"mutation": "remove downward outward rounding", "caught": true, "test": "test_numerics.NumericsTests.test_dot_intervals_enclose_independent_fraction"},
+      {"mutation": "remove upward outward rounding", "caught": true, "test": "test_numerics.NumericsTests.test_dot_intervals_enclose_independent_fraction"}
+    ]
+  },
+  "browser_review": {
+    "report": "actual CLI report for the doubled-alpha demo",
+    "widths": [
+      {"viewport": 1200, "scroll_width": 1185, "client_width": 1185, "external_resources": 0},
+      {"viewport": 360, "scroll_width": 360, "client_width": 360, "table_scroll_width": 646, "table_client_width": 332, "external_resources": 0}
+    ],
+    "embedded_json_reparsed": true,
+    "screenshot_files_written": false,
+    "screenshot_note": "Inline full-page captures inspected; the browser tool's workspace roots do not include the worktree, so no image file is claimed."
+  },
+  "independent_review": {
+    "status": "approved",
+    "date": "2026-11-27",
+    "detail": "Task 4 integration review approved the interval/exact decision path after full source, installed-wheel, sdist and PEFT verification. Added MANIFEST.in so the sdist contains the PEFT helper and required runner; rebuilt and retested the extracted sdist."
+  }
+}

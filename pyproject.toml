@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mergeproof"
-version = "0.1.0"
+version = "0.2.0"
 description = "Independent, tiled verification of explicitly declared LoRA merge artifacts"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -12,6 +12,9 @@ license = "MIT"
 authors = [{name = "gedouluhui"}]
 dependencies = ["numpy>=1.26", "safetensors>=0.4.5"]
 classifiers = ["Programming Language :: Python :: 3", "Topic :: Scientific/Engineering :: Artificial Intelligence"]
+
+[project.optional-dependencies]
+peft = ["torch>=2.2", "peft>=0.11"]
 
 [project.scripts]
 mergeproof = "mergeproof.cli:main"
