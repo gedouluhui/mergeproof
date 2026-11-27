@@ -78,13 +78,26 @@ class VerifyTests(unittest.TestCase):
         self.assertEqual(self.run_check()['status'], 'UNSUPPORTED')
 
     def test_nonfinite_each_input(self):
-        for where, key in [('base', 'layer.weight'), ('adapter', 'A'), ('merged', 'layer.weight')]:
-            with self.subTest(where=where):
+        for where, key in [('base', 'layer.weight'), ('adapter', 'A'), ('adapter', 'B'),
+                           ('merged', 'layer.weight')]:
+            with self.subTest(where=where, key=key):
                 a = getattr(self, where)[key]
                 old = a.flat[0]
                 a.flat[0] = np.nan
-                self.assertEqual(self.run_check()['status'], 'FAIL')
+                for block_size in (1, 2, 7):
+                    r = self.run_check(block_size=block_size)
+                    self.assertEqual(r['status'], 'FAIL')
+                    self.assertEqual(r['targets'][0]['elements_nonfinite'], 1)
+                    self.assertEqual(r['summary']['nonfinite_elements'], 1)
                 a.flat[0] = old
+
+    def test_mixed_finite_nonfinite_tile_counts_actual_entries(self):
+        self.merged['layer.weight'][0, 0] = np.nan
+        r = self.run_check(block_size=2)
+        self.assertEqual(r['status'], 'FAIL')
+        self.assertIn('nonfinite_tensor', self.rules(r))
+        self.assertEqual(r['targets'][0]['elements_nonfinite'], 1)
+        self.assertEqual(r['summary']['nonfinite_elements'], 1)
 
     def test_bad_limits_and_tolerances(self):
         for kwargs in [{'block_size': True}, {'block_size': 0}, {'max_working_bytes': 1},

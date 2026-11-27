@@ -53,6 +53,7 @@ def main(argv=None):
     check.add_argument('--block-size', type=int, default=128)
     check.add_argument('--atol', type=float, default=1e-6)
     check.add_argument('--rtol', type=float, default=1e-5)
+    check.add_argument('--max-exact-terms', type=int, default=100000)
     check.add_argument('--max-working-bytes', type=int, default=67108864)
     sub.add_parser('demo', help='generate and verify a tiny good/broken example').add_argument('--output', required=True)
     try:
@@ -64,6 +65,7 @@ def main(argv=None):
         inputs = [args.base, args.adapter, args.merged, args.manifest]
         validate_outputs([args.json, args.html], inputs)
         report = verify(*inputs, block_size=args.block_size, atol=args.atol, rtol=args.rtol,
+                        max_exact_terms=args.max_exact_terms,
                         max_working_bytes=args.max_working_bytes)
         text = json.dumps(report, indent=2, ensure_ascii=True, allow_nan=False)
         if args.json:
