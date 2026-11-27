@@ -140,7 +140,7 @@ Expected: The deliberately doubled update is reported as FAIL and exits 1.
 Evidence includes hand-computed matrices, incorrect scale, swapped same-shaped layers, missing/unused keys, non-target changes, nonfinite values, tile invariance, zero-update ambiguity, and CLI output tests. Coverage is the explicit FP32 standard Linear LoRA equation, not model behavior or formal verification.
 
 ### Support status
-Version 0.1.0 supports Python 3.10+ and single-file FP32 safetensors with standard nonquantized Linear LoRA. The documented route is a source checkout. Maintenance is best-effort with no SLA.
+Version 0.2.0 supports Python 3.10+ and single-file FP32 safetensors with standard nonquantized Linear LoRA. The documented route is a source checkout. Maintenance is best-effort with no SLA.
 
 ### Limitations
 Sharded indexes, FP16/BF16, DoRA, rsLoRA, quantization, bias updates, extra modules, and modified-base semantics are unsupported. Hashes identify bytes but do not authenticate origin, and the checker is not an adversarial concurrent-filesystem sandbox.

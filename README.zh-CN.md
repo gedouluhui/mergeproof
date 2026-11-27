@@ -47,7 +47,7 @@ mergeproof verify --base demo/base.safetensors --adapter demo/adapter.safetensor
 证据包括手算矩阵、错误缩放、同形状层交换、缺失/未使用键、非目标变更、非有限值、分块不变性、零更新歧义和 CLI 输出测试。覆盖范围是显式 FP32 标准 Linear LoRA 方程，不是模型行为或形式化验证。
 
 ### 支持状态
-版本 0.1.0 支持 Python 3.10+、单文件 FP32 safetensors 和标准非量化 Linear LoRA。文档路径是源码检出。维护为尽力而为，不提供 SLA。
+版本 0.2.0 支持 Python 3.10+、单文件 FP32 safetensors 和标准非量化 Linear LoRA。文档路径是源码检出。维护为尽力而为，不提供 SLA。
 
 ### 限制
 不支持分片索引、FP16/BF16、DoRA、rsLoRA、量化、偏置更新、额外模块和修改后的基座语义。哈希标识字节但不认证来源；检查器也不是对抗性并发文件系统沙箱。
